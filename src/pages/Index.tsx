@@ -36,7 +36,7 @@ const Index = () => {
   };
 
   const nextStep = () => {
-    if (currentStep < 3) {
+    if (currentStep < 4) {
       setCurrentStep(currentStep + 1);
     } else {
       setIsDialogOpen(false);
@@ -144,6 +144,74 @@ const Index = () => {
             <Button onClick={nextStep} className="w-full bg-wb-turquoise hover:bg-wb-turquoise/80 text-wb-navy font-semibold">
               ОК, понятно!
               <Icon name="Check" className="ml-2" size={16} />
+            </Button>
+          </DialogContent>
+        );
+      case 3:
+        return (
+          <DialogContent className="max-w-md">
+            <DialogHeader className="text-center">
+              <div className="mx-auto mb-4 w-16 h-16 bg-wb-turquoise/20 rounded-full flex items-center justify-center">
+                <Icon name="MapPin" className="text-wb-turquoise" size={32} />
+              </div>
+              <DialogTitle className="text-xl text-wb-navy">Финальный шаг</DialogTitle>
+            </DialogHeader>
+            <div className="text-center py-4">
+              <p className="text-gray-600 mb-6">Последнее действие:</p>
+              <div className="text-2xl font-bold text-wb-turquoise bg-wb-turquoise/10 py-4 px-6 rounded-lg border-2 border-wb-turquoise/20 mb-6">
+                Идите на свист
+              </div>
+              <div className="flex items-center justify-center text-sm text-gray-500 mb-4">
+                <Icon name="Navigation" className="mr-2" size={16} />
+                Найдите локацию "свист" в игре
+              </div>
+            </div>
+            <Button onClick={nextStep} className="w-full bg-wb-turquoise hover:bg-wb-turquoise/80 text-wb-navy font-semibold">
+              ОК, понятно!
+              <Icon name="Check" className="ml-2" size={16} />
+            </Button>
+          </DialogContent>
+        );
+      case 4:
+        return (
+          <DialogContent className="max-w-lg">
+            <DialogHeader className="text-center">
+              <div className="mx-auto mb-4 w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                <Icon name="CheckCircle" className="text-green-600" size={32} />
+              </div>
+              <DialogTitle className="text-xl text-wb-navy">Заказ выполнен!</DialogTitle>
+              <DialogDescription className="text-gray-600">
+                Спасибо за использование WB 3008
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-6 py-4">
+              <div className="bg-gray-50 rounded-lg p-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center">
+                    <p className="text-sm text-gray-500 mb-1">Номер заказа</p>
+                    <p className="font-bold text-wb-red text-lg">{orderNumber}</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-sm text-gray-500 mb-1">Игрок-исполнитель</p>
+                    <p className="font-bold text-wb-blue text-lg">Girl_908535</p>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-3">
+                <label className="text-wb-navy font-semibold flex items-center">
+                  <Icon name="Star" className="mr-2 text-yellow-500" size={18} />
+                  Оставить отзыв
+                </label>
+                <Textarea
+                  placeholder="Поделитесь впечатлениями о выполнении заказа..."
+                  rows={3}
+                  className="border-2 border-gray-200 focus:border-wb-coral resize-none"
+                />
+              </div>
+            </div>
+            <Button onClick={nextStep} className="w-full bg-wb-red hover:bg-wb-coral text-white">
+              Отправить отзыв и закрыть
+              <Icon name="Send" className="ml-2" size={16} />
             </Button>
           </DialogContent>
         );
