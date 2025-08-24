@@ -303,7 +303,7 @@ const Index = () => {
               <Icon name="Gamepad2" className="mr-2 text-wb-turquoise" size={24} />
               <span className="text-xl font-bold">WB 3008</span>
             </div>
-            <p className="text-gray-300">© 2024 WB 3008. Лучший сервис для Roblox игроков.</p>
+            <p className="text-gray-300">© 2025 WB 3008. Лучший сервис для Roblox игроков.</p>
           </div>
         </footer>
       </div>
