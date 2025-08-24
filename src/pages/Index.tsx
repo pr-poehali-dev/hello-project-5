@@ -12,6 +12,35 @@ const Index = () => {
     email: '',
     orderDescription: ''
   });
+
+  const [reviewData, setReviewData] = useState({
+    robloxNick: '',
+    reviewText: ''
+  });
+
+  const [reviews, setReviews] = useState([
+    {
+      id: 1,
+      robloxNick: 'Player123',
+      reviewText: 'Отличный сервис! Заказ выполнили очень быстро, всё как договаривались. Рекомендую!',
+      orderNumber: 'WB-2451',
+      date: '2024-08-20'
+    },
+    {
+      id: 2,
+      robloxNick: 'GameMaster99',
+      reviewText: 'Всё прошло идеально, исполнитель очень вежливый и профессиональный. Буду заказывать ещё!',
+      orderNumber: 'WB-2443',
+      date: '2024-08-19'
+    },
+    {
+      id: 3,
+      robloxNick: 'RobloxFan2024',
+      reviewText: 'Быстро, качественно, надёжно. Спасибо за хорошую работу!',
+      orderNumber: 'WB-2438',
+      date: '2024-08-18'
+    }
+  ]);
   
   const [currentStep, setCurrentStep] = useState(0);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -199,17 +228,48 @@ const Index = () => {
               </div>
               <div className="space-y-3">
                 <label className="text-wb-navy font-semibold flex items-center">
+                  <Icon name="User" className="mr-2 text-wb-red" size={18} />
+                  Ваш ник в Roblox
+                </label>
+                <Input
+                  type="text"
+                  placeholder="Введите ваш ник в Roblox"
+                  value={reviewData.robloxNick}
+                  onChange={(e) => setReviewData({...reviewData, robloxNick: e.target.value})}
+                  className="border-2 border-gray-200 focus:border-wb-coral"
+                />
+              </div>
+              <div className="space-y-3">
+                <label className="text-wb-navy font-semibold flex items-center">
                   <Icon name="Star" className="mr-2 text-yellow-500" size={18} />
                   Оставить отзыв
                 </label>
                 <Textarea
                   placeholder="Поделитесь впечатлениями о выполнении заказа..."
                   rows={3}
+                  value={reviewData.reviewText}
+                  onChange={(e) => setReviewData({...reviewData, reviewText: e.target.value})}
                   className="border-2 border-gray-200 focus:border-wb-coral resize-none"
                 />
               </div>
             </div>
-            <Button onClick={nextStep} className="w-full bg-wb-red hover:bg-wb-coral text-white">
+            <Button 
+              onClick={() => {
+                if (reviewData.robloxNick.trim() && reviewData.reviewText.trim()) {
+                  const newReview = {
+                    id: reviews.length + 1,
+                    robloxNick: reviewData.robloxNick,
+                    reviewText: reviewData.reviewText,
+                    orderNumber: orderNumber,
+                    date: new Date().toLocaleDateString('ru-RU')
+                  };
+                  setReviews([newReview, ...reviews]);
+                  setReviewData({ robloxNick: '', reviewText: '' });
+                }
+                nextStep();
+              }}
+              className="w-full bg-wb-red hover:bg-wb-coral text-white"
+            >
               Отправить отзыв и закрыть
               <Icon name="Send" className="ml-2" size={16} />
             </Button>
@@ -234,6 +294,7 @@ const Index = () => {
               <div className="flex space-x-6">
                 <a href="#home" className="text-white hover:text-wb-turquoise transition-colors">Главная</a>
                 <a href="#order" className="text-white hover:text-wb-turquoise transition-colors">Заказать</a>
+                <a href="#reviews" className="text-white hover:text-wb-turquoise transition-colors">Отзывы</a>
                 <a href="#contacts" className="text-white hover:text-wb-turquoise transition-colors">Контакты</a>
               </div>
             </nav>
@@ -360,6 +421,40 @@ const Index = () => {
                   </div>
                 </CardContent>
               </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Reviews Section */}
+        <section id="reviews" className="py-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-white mb-4">Отзывы клиентов</h2>
+              <p className="text-xl text-white/80">Что говорят наши игроки</p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {reviews.map((review) => (
+                <Card key={review.id} className="bg-white/95 backdrop-blur-md border-0 shadow-lg hover:shadow-xl transition-shadow">
+                  <CardContent className="p-6">
+                    <div className="flex items-center mb-4">
+                      <div className="w-12 h-12 bg-wb-turquoise/20 rounded-full flex items-center justify-center mr-3">
+                        <Icon name="User" className="text-wb-turquoise" size={20} />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-wb-navy">{review.robloxNick}</h3>
+                        <p className="text-sm text-gray-500">Заказ: {review.orderNumber}</p>
+                      </div>
+                    </div>
+                    <div className="flex mb-3">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Icon key={star} name="Star" className="text-yellow-400 fill-current" size={16} />
+                      ))}
+                    </div>
+                    <p className="text-gray-700 leading-relaxed">{review.reviewText}</p>
+                    <p className="text-xs text-gray-400 mt-4">{review.date}</p>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
