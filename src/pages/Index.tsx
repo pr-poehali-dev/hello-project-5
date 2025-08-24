@@ -410,11 +410,11 @@ const Index = () => {
                   </div>
                   <p className="text-wb-turquoise text-xl font-mono">sautinura142@gmail.com</p>
                   <div className="mt-6 flex justify-center space-x-6">
-                    <div className="flex items-center text-sm">
+                    <div className="flex items-center text-sm bg-red-300">
                       <Icon name="Clock" className="mr-2 text-wb-coral" size={16} />
                       Быстрый ответ
                     </div>
-                    <div className="flex items-center text-sm">
+                    <div className="flex items-center text-sm bg-red-300">
                       <Icon name="Shield" className="mr-2 text-wb-turquoise" size={16} />
                       Надёжно
                     </div>
